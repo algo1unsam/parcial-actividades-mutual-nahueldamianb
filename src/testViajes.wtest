@@ -1,0 +1,73 @@
+import Actividades.*
+import Socios.*
+
+describe "Creo Elementos" {
+
+	// Actividades
+	const marDelPalta = new ViajePlaya()
+	const cataratasIguazu = new ExcursionCiudad()
+	const cordoba = new ExcursionCiudad()
+	const recorrerBosque = new SalidaTrekking()
+	const running = new CalseGimnasia()
+	// Socios
+	const nahuel = new Socio(cantidadMaximaDeActividades = 3, edad = 23, idiomasQueConoce = [ "Espanol", "Ingles", "Frances" ], tipo = relajado)
+	const juan = new Socio(cantidadMaximaDeActividades = 2, edad = 30, idiomasQueConoce = [ "Espanol", "Frances" ], tipo = tranquilo)
+	const javi = new Socio(cantidadMaximaDeActividades = 1, edad = 40, idiomasQueConoce = [ "Ingles", "Frances" ], tipo = coherente)
+	const vero = new Socio(cantidadMaximaDeActividades = 4, edad = 45, idiomasQueConoce = [ "Espanol" ], tipo = relajado)
+
+	fixture {
+		javi.registrarActividad(running)
+		nahuel.registrarActividad(recorrerBosque)
+		vero.registrarActividad(recorrerBosque)
+		juan.registrarActividad(recorrerBosque)
+		nahuel.registrarActividad(running)
+		vero.registrarActividad(running)
+		juan.registrarActividad(running)
+		nahuel.registrarActividad(marDelPalta)
+		vero.registrarActividad(marDelPalta)
+		vero.registrarActividad(cataratasIguazu)
+	// assert.throwsException(javi.registrarActividad(cataratasIguazu))
+	}
+
+//punto 1
+	test "Un viaje de playa implica esfuerzo si el largo de la playa supera los 1200 metros" {
+		marDelPalta.longitud(1300)
+		assert.that(marDelPalta.esfuerzo())
+		marDelPalta.longitud(1000)
+		assert.notThat(marDelPalta.esfuerzo())
+	}
+
+	test "Una excursión a ciudad normal (no tropical) en la que se visitan 4 atracciones" {
+		cataratasIguazu.tipoCiudad('salvaje')
+		cataratasIguazu.cantAtraccionesAVisitar(4)
+		assert.equals(2, cataratasIguazu.dias())
+		assert.notThat(cataratasIguazu.esfuerzo())
+		assert.notThat(cataratasIguazu.bronceado())
+	}
+
+	test "Una excursión a ciudad tropical" {
+		cordoba.tipoCiudad(tropical)
+		cordoba.cantAtraccionesAVisitar(8)
+		assert.equals(5, cordoba.dias())
+		assert.that(cordoba.esfuerzo())
+		assert.that(cordoba.bronceado())
+	}
+
+	test "Una salida de 100 kilómetros a un lugar con 130 días de sol por año: lleva 2 días, implica esfuerzo, y no sirve para broncearse." {
+		recorrerBosque.kilometrosSendero(100)
+		recorrerBosque.diasSoleados(130)
+		assert.that(recorrerBosque.esfuerzo())
+		assert.notThat(recorrerBosque.bronceado())
+	}
+// punto 2
+
+test "Viajes interesantes"{
+	marDelPalta.idiomas(["Espanol","Edsfs","ingles"])
+	assert.that(marDelPalta.esInteresante())
+	cordoba.cantAtraccionesAVisitar(5)
+	assert.that(cordoba.esInteresante())
+}
+
+// punto 3
+}
+

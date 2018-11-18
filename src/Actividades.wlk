@@ -7,7 +7,7 @@ class Viaje {
 	method esInteresante() = idiomas.size() > 1
 	
 	method esRecomendada(unSocio){
-		return self.esInteresante() and unSocio.leAtrae(self) and unSocio.actividades().any({a => a != self})
+		return self.esInteresante() and unSocio.leAtrae(self) and unSocio.actividades().any({a => a != self}) // contains
 	}
 
 }
@@ -30,7 +30,7 @@ class ExcursionCiudad inherits Viaje {
 	var property tipoCiudad
 
 	method dias() {
-		if (self.tipoCiudad() == tropical) {
+		if (self.tipoCiudad() == tropical) { // Usar herencia y polimorfismo
 			return (cantAtraccionesAVisitar / 2) + 1
 		} else {
 			return cantAtraccionesAVisitar / 2
@@ -68,7 +68,7 @@ class SalidaTrekking inherits Viaje {
 
 }
 
-class CalseGimnasia inherits Viaje {
+class CalseGimnasia inherits Viaje { //No esta bien la herencia
 
 	override method idiomas() {
 		return [ "Espanol" ]

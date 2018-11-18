@@ -22,7 +22,7 @@ class Socio {
 	}
 
 	method actividadesImplicanEsfuerzo() {
-		return actividades.map({ unaA => unaA.esfuerzo() })
+		return actividades.map({ unaA => unaA.esfuerzo() }) //Filter
 	}
 
 	method leAtrae(unaActividad) {
@@ -57,7 +57,7 @@ object coherente {
 object relajado {
 
 	method actividadInteresante(unaActividad, unSocio) {
-		return unaActividad.idiomas().intersection({ unSocio.idiomasQueConoce() }).size() > 0
+		return unaActividad.idiomas().intersection({ unSocio.idiomasQueConoce() }).size() > 0 // mas facil con any
 	}
 
 }
